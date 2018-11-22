@@ -28,10 +28,8 @@ using System.Threading.Tasks;
 
 namespace ImageFunctions
 {
-    public static class Thunbnail
+    public static class Thumbnail
     {
-        private static readonly string BLOB_STORAGE_CONNECTION_STRING = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
-
         private static string GetBlobNameFromUrl(string bloblUrl)
         {
             var uri = new Uri(bloblUrl);
@@ -89,7 +87,7 @@ namespace ImageFunctions
                     {
                         var thumbnailWidth = Convert.ToInt32(Environment.GetEnvironmentVariable("THUMBNAIL_WIDTH"));
                         var thumbContainerName = Environment.GetEnvironmentVariable("THUMBNAIL_CONTAINER_NAME");
-                        var storageAccount = CloudStorageAccount.Parse(BLOB_STORAGE_CONNECTION_STRING);
+                        var storageAccount = Environment.GetEnvironmentVariable("BLOB_STORAGE_CONNECTION_STRING");
                         var blobClient = storageAccount.CreateCloudBlobClient();
                         var container = blobClient.GetContainerReference(thumbContainerName);
                         var blobName = GetBlobNameFromUrl(createdEvent.Url);
