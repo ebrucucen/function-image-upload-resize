@@ -77,6 +77,7 @@ namespace ImageFunctions
         {
             try
             {
+                log.LogInformation("initial");
                 if (input != null)
                 {
                     log.LogInformation("started");
