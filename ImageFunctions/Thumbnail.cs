@@ -79,12 +79,16 @@ namespace ImageFunctions
             {
                 if (input != null)
                 {
+                    log.LogInformation("started");
                     var createdEvent = ((JObject)eventGridEvent.Data).ToObject<StorageBlobCreatedEventData>();
+                    log.LogInformation(createdEvent.Url);
+                    log.LogInformation(createdEvent.ToString());
                     var extension = Path.GetExtension(createdEvent.Url);
                     var encoder = GetEncoder(extension);
 
                     if (encoder != null)
                     {
+                        log.LogInformation("encoder not null");                    
                         var thumbnailWidth = Convert.ToInt32(Environment.GetEnvironmentVariable("THUMBNAIL_WIDTH"));
                         var thumbContainerName = Environment.GetEnvironmentVariable("THUMBNAIL_CONTAINER_NAME");
                         var storageAccount = CloudStorageAccount.Parse(Environment.GetEnvironmentVariable("BLOB_STORAGE_CONNECTION_STRING"));
