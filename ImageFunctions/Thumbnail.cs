@@ -74,9 +74,9 @@ namespace ImageFunctions
             [EventGridTrigger]EventGridEvent eventGridEvent,
             [Blob("{data.url}", FileAccess.Read)] Stream input,
             ILogger log)
-        {
-            try
             {
+             try
+             {
                 log.LogInformation("initial");
                 if (input != null)
                 {
@@ -87,33 +87,7 @@ namespace ImageFunctions
                     var extension = Path.GetExtension(createdEvent.Url);
                     var encoder = GetEncoder(extension);
 
-                    if (encoder != null)
-                    {
-                        log.LogInformation("encoder not null");                    
-                        var thumbnailWidth = Convert.ToInt32(Environment.GetEnvironmentVariable("THUMBNAIL_WIDTH"));
-                        var thumbContainerName = Environment.GetEnvironmentVariable("THUMBNAIL_CONTAINER_NAME");
-                        var storageAccount = CloudStorageAccount.Parse(Environment.GetEnvironmentVariable("BLOB_STORAGE_CONNECTION_STRING"));
-                        var blobClient = storageAccount.CreateCloudBlobClient();
-                        var container = blobClient.GetContainerReference(thumbContainerName);
-                        var blobName = GetBlobNameFromUrl(createdEvent.Url);
-                        var blockBlob = container.GetBlockBlobReference(blobName);
-
-                        using (var output = new MemoryStream())
-                        using (Image<Rgba32> image = Image.Load(input))
-                        {
-                            var divisor = image.Width / thumbnailWidth;
-                            var height = Convert.ToInt32(Math.Round((decimal)(image.Height / divisor)));
-
-                            image.Mutate(x => x.Resize(thumbnailWidth, height));
-                            image.Save(output, encoder);
-                            output.Position = 0;
-                            await blockBlob.UploadFromStreamAsync(output);
-                        }
-                    }
-                    else
-                    {
-                        log.LogInformation($"No encoder support for: {createdEvent.Url}");
-                    }
+                    
                 }
             }
             catch (Exception ex)
