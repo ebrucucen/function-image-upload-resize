@@ -79,8 +79,10 @@ namespace ImageFunctions
         {
             try
             {
+                log.LogInformation("started the function.");
                 if (input != null)
                 {
+                    log.LogInformation("input found.");
                     var createdEvent = ((JObject)eventGridEvent.Data).ToObject<StorageBlobCreatedEventData>();
                     var extension = Path.GetExtension(createdEvent.Url);
                     var encoder = GetEncoder(extension);
