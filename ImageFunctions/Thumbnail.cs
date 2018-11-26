@@ -13,6 +13,7 @@ using Microsoft.Azure.WebJobs.Extensions.EventGrid;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
@@ -73,13 +74,15 @@ namespace ImageFunctions
         public static async Task Run(
             [EventGridTrigger]EventGridEvent eventGridEvent,
             [Blob("{data.url}", FileAccess.Read)] Stream input,
-            ILogger log)
+            ILogger log){
+
+            try
             {
                 log.LogInformation("started the function.");
                 if (input != null)
                 {
                     log.LogInformation("input found.");
-                    log.Info(eventGridEvent.ToString(Formatting.Indented));
+                    log.LogInformation(eventGridEvent.ToString());
                     var createdEvent = ((JObject)eventGridEvent.Data).ToObject<StorageBlobCreatedEventData>();
                     log.LogInformation(createdEvent.Url);
                     log.LogInformation(createdEvent.ToString());
