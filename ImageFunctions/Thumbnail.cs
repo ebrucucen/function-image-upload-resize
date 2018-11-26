@@ -83,6 +83,7 @@ namespace ImageFunctions
                 {
                     log.LogInformation("input found.");
                     log.LogInformation(eventGridEvent.ToString());
+                    /*
                     var createdEvent = ((JObject)eventGridEvent.Data).ToObject<StorageBlobCreatedEventData>();
                     log.LogInformation(createdEvent.Url);
                     log.LogInformation(createdEvent.ToString());
@@ -116,6 +117,7 @@ namespace ImageFunctions
                     {
                         log.LogInformation($"No encoder support for: {createdEvent.Url}");
                     }
+                */
                 }
             }
             catch (Exception ex)
