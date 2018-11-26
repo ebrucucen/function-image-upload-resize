@@ -75,12 +75,10 @@ namespace ImageFunctions
             [Blob("{data.url}", FileAccess.Read)] Stream input,
             ILogger log)
             {
-             try
-             {
-                log.LogInformation("initial");
+                log.LogInformation("started the function.");
                 if (input != null)
                 {
-                    log.LogInformation("started");
+                    log.LogInformation("input found.");
                     var createdEvent = ((JObject)eventGridEvent.Data).ToObject<StorageBlobCreatedEventData>();
                     log.LogInformation(createdEvent.Url);
                     log.LogInformation(createdEvent.ToString());
