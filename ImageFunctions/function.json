@@ -1,0 +1,20 @@
+{
+    "generatedBy": "Microsoft.NET.Sdk.Functions-1.0.22",
+    "configurationSource": "attributes",
+    "bindings": [
+        {
+            "type": "eventGridTrigger",
+            "name": "eventGridEvent"
+        },
+        {
+            "type": "blob",
+            "name": "inputBlob",
+            "path": "{data.url}",
+            "connection": "BLOB_STORAGE_CONNECTION_STRING",
+            "direction": "in"
+        }
+    ],
+    "disabled": false,
+    "scriptFile": "../bin/ImageFunctions.dll",
+    "entryPoint": "ImageFunctions.Thumbnail.Run"
+}
