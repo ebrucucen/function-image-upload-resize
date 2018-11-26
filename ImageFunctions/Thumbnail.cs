@@ -72,7 +72,7 @@ namespace ImageFunctions
 
         [FunctionName("Thumbnail")]
         public static async Task Run(
-            [EventGridTrigger]Microsoft.Azure.EventGrid.Models.GridEvent eventGridEvent,
+            [EventGridTrigger]Microsoft.Azure.EventGrid.Models.EventGridEvent eventGridEvent,
             [Blob("{data.url}", FileAccess.Read)] Stream input,
             ILogger log){
 
