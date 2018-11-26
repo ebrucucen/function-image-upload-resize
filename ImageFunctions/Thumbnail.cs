@@ -6,7 +6,7 @@
 
 // Use for local testing:
 //   https://{ID}.ngrok.io/runtime/webhooks/EventGrid?functionName=Thumbnail?code=wnFg7baVogsa5oiqZUgYYUTeCwv/Ta02grx6aqB6Us3es/fAocSr9Q==
-
+using Microsoft.Azure.EventGrid;
 using Microsoft.Azure.EventGrid.Models;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.EventGrid;
@@ -72,7 +72,7 @@ namespace ImageFunctions
 
         [FunctionName("Thumbnail")]
         public static async Task Run(
-            [EventGridTrigger]EventGridEvent eventGridEvent,
+            [EventGridTrigger]Microsoft.Azure.EventGrid.Models.GridEvent eventGridEvent,
             [Blob("{data.url}", FileAccess.Read)] Stream input,
             ILogger log){
 
