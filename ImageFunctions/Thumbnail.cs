@@ -79,6 +79,7 @@ namespace ImageFunctions
                 if (input != null)
                 {
                     log.LogInformation("input found.");
+                    log.Info(eventGridEvent.ToString(Formatting.Indented));
                     var createdEvent = ((JObject)eventGridEvent.Data).ToObject<StorageBlobCreatedEventData>();
                     log.LogInformation(createdEvent.Url);
                     log.LogInformation(createdEvent.ToString());
