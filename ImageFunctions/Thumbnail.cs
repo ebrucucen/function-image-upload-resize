@@ -1,6 +1,3 @@
-// Default URL for triggering event grid function in the local environment.
-// http://localhost:7071/runtime/webhooks/EventGrid?functionName={functionname}
-
 // Learn how to locally debug an Event Grid-triggered function:
 //    https://aka.ms/AA30pjh
 
@@ -73,7 +70,7 @@ namespace ImageFunctions
         [FunctionName("Thumbnail")]
         public static async Task Run(
             [EventGridTrigger]Microsoft.Azure.EventGrid.Models.EventGridEvent eventGridEvent,
-            [Blob("{data.url}", FileAccess.Read)] Stream input,
+            [Blob("{data.url}", FileAccess.Read, Connection= "BLOB_STORAGE_CONNECTION_STRING")] Stream input,
             ILogger log){
 
             try
